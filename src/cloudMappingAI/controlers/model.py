@@ -268,3 +268,34 @@ class Model:
         plt.imshow(predictions['prediction'][2])
         plt.axis('off')
         plt.show()
+
+    def remove_clouds_with_transparency(self, original_image, segmentation_mask, cloud_label):
+        # Convert original image to numpy array (H,W,3)
+        if not isinstance(original_image, np.ndarray):
+            original_image = np.array(original_image)
+
+        # Convert mask to numpy and ensure it's 2D (H,W)
+        if isinstance(segmentation_mask, torch.Tensor):
+            segmentation_mask = segmentation_mask.cpu().numpy()
+        segmentation_mask = np.squeeze(segmentation_mask)
+
+        # Create alpha channel (255 = opaque, 0 = transparent)
+        alpha = np.where(segmentation_mask == cloud_label,
+                         0, 255).astype(np.uint8)
+
+        # Combine RGB + Alpha
+        rgba = np.dstack((original_image, alpha))  # (H,W,4)
+
+        return rgba
+
+    def show_image_remove_clouds_with_transparency(self, original_image, segmentation_mask, CLOUD_LABEL, fungsi_remove_clouds_with_transparency):
+        # Process image
+        transparent_result = fungsi_remove_clouds_with_transparency(
+            original_image, segmentation_mask, CLOUD_LABEL)
+
+        # Display
+        plt.figure(figsize=(15, 10))
+        # Matplotlib otomatis handle transparansi
+        plt.imshow(transparent_result)
+        plt.title("Image with Transparent Clouds")
+        plt.show()

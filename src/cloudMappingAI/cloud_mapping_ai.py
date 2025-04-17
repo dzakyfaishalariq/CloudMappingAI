@@ -116,3 +116,16 @@ class CloudMappingAI:
 
     def show_image_model_prediction(self, prediction):
         self.model_semantic.show_all_three_sample_testing_images(prediction)
+
+    def remove_cloudh_with_transparansy(self, original_image, segmentation_image, cloud_label):
+        return self.model_semantic.remove_clouds_with_transparency(
+            original_image, segmentation_image, cloud_label)
+
+    def show_image_remove_clouds_with_transparency(self, test_dataset, mask_prdict, cloud_label, index_image, fungsi_remove_clouds_with_transparency):
+        CLOUD_LABEL = cloud_label
+        index = index_image
+        original_image = test_dataset['image'][index]
+        segmentation_image = mask_prdict[index]
+
+        self.model_semantic.show_image_remove_clouds_with_transparency(
+            original_image, segmentation_image, CLOUD_LABEL, fungsi_remove_clouds_with_transparency)

@@ -84,17 +84,17 @@ Ada beberapa class dan method yang digunakan pada libraray cloudmappingai ini di
    pra_pemrosesan_data = pra_pemrosesanDataset(
       path_directory_input=...,
       path_directory_output=...,
-      path_directory_output_ESRGAN=...
+      path_directory_output_result_esrgan=...
    )
    ```
 
    Inisialisasi _pra_pemrosesanDataset_ melibatkan pemasukan beberapa parameter terdiri dari:
 
-   | parameter                      | deskripsi                                                                                                                                                                                    |
-   | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-   | _path_directory_input_         | Sebagai parameter yang bernilai _(string)_ yang menyimpan _string_ berupa lokasi dari gambar directory atau penyimpanan inputan                                                              |
-   | _path_directory_output_        | Sebagai parameter yang bernilai _(string)_ yang menyimpan _string_ berupa lokasi dari gambar directory atau penyimpanan outputan                                                             |
-   | _path_directory_output_ESRGAN_ | Sebagai parameter yang bernilai _(string)_ yang menyimpan _string_ berupa lokasi dari gambar yang sudah di ubah format nya menjadi _.png_ yang nantinya akan siap di tingkatkan resolusinya. |
+   | parameter                             | deskripsi                                                                                                                                                                                    |
+   | ------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+   | _path_directory_input_                | Sebagai parameter yang bernilai _(string)_ yang menyimpan _string_ berupa lokasi dari gambar directory atau penyimpanan inputan                                                              |
+   | _path_directory_output_               | Sebagai parameter yang bernilai _(string)_ yang menyimpan _string_ berupa lokasi dari gambar directory atau penyimpanan outputan                                                             |
+   | _path_directory_output_result_esrgan_ | Sebagai parameter yang bernilai _(string)_ yang menyimpan _string_ berupa lokasi dari gambar yang sudah di ubah format nya menjadi _.png_ yang nantinya akan siap di tingkatkan resolusinya. |
 
 2. Penggunaan method ubah format gambar sekala directory atau folder.
 
@@ -113,8 +113,7 @@ Ada beberapa class dan method yang digunakan pada libraray cloudmappingai ini di
    pra_pemrosesan_data.change_image_format_to_png_for_on_image_dataset
    (
       path_image=....,
-      path_output=...,
-      image_format_after=".png"
+      path_output_image=...,
    )
    ```
 
@@ -126,7 +125,6 @@ Ada beberapa class dan method yang digunakan pada libraray cloudmappingai ini di
    |-----|-----|
    |_path_image_|Parameter yang menyimpan nilai (_string_) yaitu berupa lokasi path image yang berformat _.tif_|
    |_path_output_|Paramater yang menyimpan nilai (_string_) yaitu berupa lokasi path directory untuk output hasil pengubahan gambar ke _.png_|
-   |_image_format_after_| Parameter yang menyimpan secara default nilai (_string_) yaitu _string_ format _.png_|
 
 4. Penggunaan method ubah format gambar secara keseluruhan dari satu folder dan menyimpan lokasi path gambar ke dalam sebuah array
 
@@ -392,3 +390,29 @@ Pada bagian ini bertujuan untuk menjalankan area pengembangan model, evaluasi mo
 
    output:
    ![image](https://github.com/user-attachments/assets/ac7a36b9-9206-4464-b072-f993b4e5f9db)
+
+9. Melakukan penghapusan awan di gambar asli
+
+```python
+hasil_gambar_hasil_hapus_awan = ModelCloudMappingAI.remove_cloudh_with_transparansy(
+   original_image="",
+   segmentation_image="",
+   cloud_label=""
+)
+```
+
+Paramater yang digunakan :
+
+| parameter            | penjelasan                                                                                        |
+| -------------------- | ------------------------------------------------------------------------------------------------- |
+| _original_image_     | Sebagai parameter yang menampung variabel gambar yang asli atau inputan gambar berbentuk vector   |
+| _segmentation_image_ | Sebagai parameter yang menampung variabel gamba hasil prediksi model berbentuk vector             |
+| _cloud_label_        | sebagai parameter yang menampung nilai interger label yang mendeskripsikan awan contoh 1,2,3,.... |
+
+cara penggunaannya:
+
+![Image](https://github.com/user-attachments/assets/fff208a9-1991-4530-ba8f-d5bfc86ccc8e)
+
+Hasil :
+
+![Image](https://github.com/user-attachments/assets/8053af39-7b0c-4d23-ab60-8d541f2151c1)
